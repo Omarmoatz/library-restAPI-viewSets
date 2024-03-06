@@ -12,3 +12,7 @@ class BookMixinViewSet(mixins.ListModelMixin,
                         viewsets.GenericViewSet):
     queryset = Book.objects.all()
     serializer_class = BookSerilizer
+
+
+book_list = BookMixinViewSet.as_view({'get':'list'})
+book_detail = BookMixinViewSet.as_view({'get':'retrieve'})
