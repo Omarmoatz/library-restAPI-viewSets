@@ -9,6 +9,7 @@ class BookViewSet(viewsets.ModelViewSet):
 
 class BookMixinViewSet(mixins.ListModelMixin,
                         mixins.RetrieveModelMixin,
+                        mixins.UpdateModelMixin,
                         viewsets.GenericViewSet):
     queryset = Book.objects.all()
     serializer_class = BookSerilizer
@@ -16,3 +17,4 @@ class BookMixinViewSet(mixins.ListModelMixin,
 
 book_list = BookMixinViewSet.as_view({'get':'list'})
 book_detail = BookMixinViewSet.as_view({'get':'retrieve'})
+book_update = BookMixinViewSet.as_view({'put':'update'})
