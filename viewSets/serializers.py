@@ -18,7 +18,7 @@ class BookSerilizer(serializers.ModelSerializer):
 
 
     def create(self, validated_data):
-        email = validated_data.pop('email')
+        # email = validated_data.pop('email')
         item = super().create(validated_data)
         # send email to someone
         return item
