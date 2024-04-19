@@ -11,6 +11,7 @@ class BookSerilizer(serializers.ModelSerializer):
         lookup_field= 'pk'
     )
     email = serializers.EmailField(write_only=True)
+
     class Meta:
         model = Book
         fields = '__all__'
@@ -18,7 +19,9 @@ class BookSerilizer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         email = validated_data.pop('email')
-        return super().create(validated_data)
+        item = super().create(validated_data)
+        # send email to someone
+        return item
 
     def get_url(self,obj):
         request = self.context.get('request')
