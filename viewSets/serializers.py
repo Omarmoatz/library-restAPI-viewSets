@@ -10,9 +10,15 @@ class BookSerilizer(serializers.ModelSerializer):
         view_name= 'book_detail',
         lookup_field= 'pk'
     )
+    email = serializers.EmailField(write_only=True)
     class Meta:
         model = Book
         fields = '__all__'
+
+
+    def create(self, validated_data):
+        email = validated_data.pop('email')
+        return super().create(validated_data)
 
     def get_url(self,obj):
         request = self.context.get('request')
