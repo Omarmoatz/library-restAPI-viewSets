@@ -16,6 +16,13 @@ class BookSerilizer(serializers.ModelSerializer):
         model = Book
         fields = '__all__'
 
+    # def validate_field name()
+    def validate_title(self,value):
+        qs = Book.objects.filter(title__iexact=value)
+        if qs.exists():
+            raise serializers.ValidationError(f'{value} this book is already exists')
+        return value
+
 
     def create(self, validated_data):
         email = validated_data.pop('email')         # you should do any edite in the serializer
