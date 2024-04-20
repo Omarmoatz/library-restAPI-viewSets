@@ -1,10 +1,12 @@
 from django.db import models
-from django.utils import timezone
+from django.utils import timezone   # timezone doesn't work with date field
+                                    #   only work on date time field
+
 
 class Book(models.Model):
     title = models.CharField(max_length=200, default='defaut_title')
     author = models.ForeignKey('Author' ,related_name='book_author', on_delete=models.SET_NULL, null=True, blank=True)
-    publication_date = models.DateField(default=timezone.now)
+    publication_date = models.DateField(default='2024-4-20')
     description = models.TextField(max_length=1000,  default='defaut_description')
     price = models.DecimalField( max_digits=6, decimal_places=2, default=99.99)
 
