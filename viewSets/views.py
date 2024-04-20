@@ -16,8 +16,8 @@ class BookMixinViewSet(mixins.ListModelMixin,
     serializer_class = BookSerilizer
 
     def perform_create(self, serializer):
-        email = serializer.validated_data.pop('email')
-        print(email) 
+        # email = serializer.validated_data.pop('email')
+        # print(email) 
         title = serializer.validated_data['title']
         description = serializer.validated_data.get('description') or None
         author = serializer.validated_data.get('author') or None

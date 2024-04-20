@@ -18,10 +18,20 @@ class BookSerilizer(serializers.ModelSerializer):
 
 
     def create(self, validated_data):
-        # email = validated_data.pop('email')
+        email = validated_data.pop('email')         # you should do any edite in the serializer
+                                                    #  rather than in the view if you can
         item = super().create(validated_data)
         # send email to someone
         return item
+    
+    def update(self, instance, validated_data):
+        email = validated_data.pop('email') 
+        description = validated_data.get('description') or None
+
+        if description is None:
+            instance.description = 'test update method in serializer'
+
+        return super().update(instance, validated_data)
 
     def get_url(self,obj):
         request = self.context.get('request')
