@@ -34,3 +34,9 @@ book_list = BookMixinViewSet.as_view({'get':'list'})
 book_detail = BookMixinViewSet.as_view({'get':'retrieve'})
 book_update = BookMixinViewSet.as_view({'put':'update'})
 book_create = BookMixinViewSet.as_view({'post':'create'})
+
+
+# to get the request in viewset or genaric view :
+#       request = self.request 
+# to get the request in serializer :
+#       request = self.context.get('request')

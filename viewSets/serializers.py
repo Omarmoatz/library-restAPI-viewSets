@@ -13,7 +13,7 @@ class BookSerializer(serializers.ModelSerializer):
     )
     email = serializers.EmailField(write_only=True)
     title = serializers.CharField(validators=[validators.unique_title, validators.validate_no_test])
-    name = serializers.CharField( source='title', read_only=True) 
+    name = serializers.CharField( source='author.biography', read_only=True) 
 
     class Meta:
         model = Book
