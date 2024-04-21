@@ -1,11 +1,11 @@
 from rest_framework import viewsets,mixins
 
 from .models import Book
-from .serializers import BookSerilizer
+from .serializers import BookSerializer
 
 class BookViewSet(viewsets.ModelViewSet):
     queryset = Book.objects.all()
-    serializer_class = BookSerilizer
+    serializer_class = BookSerializer
 
 class BookMixinViewSet(mixins.ListModelMixin,
                         mixins.RetrieveModelMixin,
@@ -13,7 +13,7 @@ class BookMixinViewSet(mixins.ListModelMixin,
                         mixins.CreateModelMixin,
                         viewsets.GenericViewSet):
     queryset = Book.objects.all()
-    serializer_class = BookSerilizer
+    serializer_class = BookSerializer
 
     def perform_create(self, serializer):
         # email = serializer.validated_data.pop('email')
