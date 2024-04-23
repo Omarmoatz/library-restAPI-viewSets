@@ -28,6 +28,15 @@ class BookMixinViewSet(mixins.ListModelMixin,
         serializer.save(description=description)
     
         return super().perform_create(serializer)
+    
+    def get_queryset(self):
+        user = self.request.user
+        
+        if not user.is_authenticated:
+            return Book.objects.none()
+        
+        qs = super().get_queryset()
+        return qs.filter(user=user)
 
 
 book_list = BookMixinViewSet.as_view({'get':'list'})

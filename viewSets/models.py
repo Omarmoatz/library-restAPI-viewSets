@@ -1,9 +1,14 @@
 from django.db import models
-from django.utils import timezone   # timezone doesn't work with date field
-                                    #   only work on date time field
+from django.utils import timezone  
+from django.conf import settings
 
+User = settings.AUTH_USER_MODEL  # == from django.contrib.auth.models import User
+
+# timezone doesn't work with date field
+#   only work on date time field
 
 class Book(models.Model):
+    user = models.ForeignKey(User,default=1, on_delete=models.SET_NULL,null=True)
     title = models.CharField(max_length=200, default='defaut_title')
     author = models.ForeignKey('Author' ,related_name='book_author', on_delete=models.SET_NULL, null=True, blank=True)
     publication_date = models.DateField(default='2024-4-20')
