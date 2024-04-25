@@ -2,6 +2,7 @@ from rest_framework import viewsets,mixins
 
 from .models import Book
 from .serializers import BookSerializer
+from .mixins import QuerySetMixin
 
 class BookViewSet(viewsets.ModelViewSet):
     queryset = Book.objects.all()
@@ -11,6 +12,7 @@ class BookMixinViewSet(mixins.ListModelMixin,
                         mixins.RetrieveModelMixin,
                         mixins.UpdateModelMixin,
                         mixins.CreateModelMixin,
+                        QuerySetMixin,
                         viewsets.GenericViewSet):
     queryset = Book.objects.all()
     serializer_class = BookSerializer
@@ -29,14 +31,15 @@ class BookMixinViewSet(mixins.ListModelMixin,
     
         return super().perform_create(serializer)
     
-    def get_queryset(self):
-        user = self.request.user
+    # def get_queryset(self):
+        # replaced it with a custom mixixn
+    #     user = self.request.user
         
-        if not user.is_authenticated:
-            return Book.objects.none()
+    #     if not user.is_authenticated:  
+    #         return Book.objects.none()
         
-        qs = super().get_queryset()
-        return qs.filter(user=user)
+    #     qs = super().get_queryset()
+    #     return qs.filter(user=user)
 
 
 book_list = BookMixinViewSet.as_view({'get':'list'})

@@ -11,7 +11,7 @@ class BookSerializer(serializers.ModelSerializer):
         view_name= 'book_detail',
         lookup_field= 'pk'
     )
-    email = serializers.EmailField(write_only=True)
+    # email = serializers.EmailField(write_only=True)
     title = serializers.CharField(validators=[validators.unique_title, validators.validate_no_test])
     name = serializers.CharField( source='author.biography', read_only=True) 
 
@@ -31,14 +31,14 @@ class BookSerializer(serializers.ModelSerializer):
 
 
     def create(self, validated_data):
-        email = validated_data.pop('email')         # you should do any edite in the serializer
+        # email = validated_data.pop('email')         # you should do any edite in the serializer
                                                     #   rather than in the view if you can
         item = super().create(validated_data)
         # send email to someone
         return item
     
     def update(self, instance, validated_data):
-        email = validated_data.pop('email') 
+        # email = validated_data.pop('email') 
         description = validated_data.get('description') or None
 
         if description is None:

@@ -11,7 +11,7 @@ from .models import Book
 
 def validate_no_test(value):
     if 'test' == value.lower():
-        raise serializers.ValidationError('the title must not contain test word ')
+        raise serializers.ValidationError(f'this {value} title not accepted ')
     return
 
-unique_title = UniqueValidator(queryset=Book.objects.all())
+unique_title = UniqueValidator(queryset=Book.objects.all(), lookup='iexact')
